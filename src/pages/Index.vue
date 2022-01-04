@@ -15,6 +15,7 @@
     <hr />
 
     <p>Uppercase message: {{ messageUppercase }}</p>
+    <p>Lowercase message: {{ message | messageLowercase }}</p>
   </q-page>
 </template>
 
@@ -29,7 +30,7 @@ export default {
   computed: {
     messageUppercase() {
       console.log("messageUppercase was fired");
-      return this.message.toUpperCase();
+      return this.message.toUpperCase() + this.counter;
     },
   },
   methods: {
@@ -38,6 +39,12 @@ export default {
     },
     alertMessage() {
       alert(this.message);
+    },
+  },
+  // A Filter is basically just a method which accepts a value
+  filters: {
+    messageLowercase(value) {
+      return value.toLowerCase();
     },
   },
 };
