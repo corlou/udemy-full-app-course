@@ -10,6 +10,9 @@
       v-autofocus
     />
     <button @click="clearMessage">Clear</button>
+
+    <div>{{ message.length }}</div>
+
     <h5 v-if="message.length" class="border-grey">{{ message }}</h5>
     <h6 v-else>No message entered</h6>
 
@@ -55,11 +58,43 @@ export default {
       },
     },
   },
+  beforeCreate() {
+    console.log("beforeCreate");
+  },
+  created() {
+    console.log("created");
+  },
+  beforeMount() {
+    console.log("beforeMount");
+  },
+  mounted() {
+    console.log("mounted");
+  },
+  beforeUpdate() {
+    console.log("beforeUpdate");
+  },
+  updated() {
+    console.log("updated");
+  },
+  beforeDestroy() {
+    console.log("beforeDestroy");
+  },
+  destroyed() {
+    console.log("destroyed");
+  },
 };
 </script>
 
 <style>
 .border-grey {
   border: 1px solid grey;
+}
+input,
+button {
+  font-size: 23px;
+}
+.error {
+  color: red;
+  background: pink;
 }
 </style>
