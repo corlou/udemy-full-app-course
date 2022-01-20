@@ -1,27 +1,12 @@
 <template>
   <q-page padding>
-    <button style="position: absolute; right: 10px" @click="counter++">
-      {{ counter }}
-    </button>
-    <input
-      v-model="message"
-      @keyup.esc="clearMessage"
-      @keyup.enter="alertMessage"
-      v-autofocus
-      :class="{ error: message.length > 22 }"
-      ref="messageInput"
-    />
-    <button @click="clearMessage">Clear</button>
-
-    <div>{{ message.length }}</div>
-
-    <h5 v-if="message.length" class="border-grey">{{ message }}</h5>
-    <h6 v-else>No message entered</h6>
-
-    <hr />
-
-    <p>Uppercase message: {{ messageUppercase }}</p>
-    <p>Lowercase message: {{ message | messageLowercase }}</p>
+    <ul>
+      <li v-for="(task, index) in tasks" :key="task.tasks">
+        <div>{{ task.name }} {{ index }}</div>
+        <small>{{ task.dueDate }} @ {{ task.dueTime }}</small>
+        <button @click="deleteTask(index)">X</button>
+      </li>
+    </ul>
   </q-page>
 </template>
 
@@ -29,55 +14,31 @@
 export default {
   data() {
     return {
-      message: "I love vue.js",
-      counter: 0,
+      tasks: [
+        {
+          name: "Go to shop",
+          dueDate: "2019/05/12",
+          dueTime: "18:30",
+        },
+        {
+          name: "Get bananas",
+          dueDate: "2019/05/13",
+          dueTime: "14:00",
+        },
+        {
+          name: "Get apples",
+          dueDate: "2019/05/14",
+          dueTime: "16:00",
+        },
+      ],
     };
-  },
-  computed: {
-    messageUppercase() {
-      console.log("messageUppercase was fired");
-      return this.message.toUpperCase() + this.counter;
-    },
-  },
+  }, // end of Data
   methods: {
-    clearMessage() {
-      this.message = "";
+    deleteTask(index) {
+      this.tasks.splice(index, 1);
     },
-    alertMessage() {
-      alert(this.message);
-    },
-  },
-  // A Filter is basically just a method which accepts a value
-  filters: {
-    messageLowercase(value) {
-      return value.toLowerCase();
-    },
-  },
-  directives: {
-    autofocus: {
-      inserted(el) {
-        el.focus();
-      },
-    },
-  },
-
-  mounted() {
-    console.log(this.$refs);
-    this.$refs.messageInput.className = "bg-green";
   },
 };
 </script>
 
-<style>
-.border-grey {
-  border: 1px solid grey;
-}
-input,
-button {
-  font-size: 23px;
-}
-.error {
-  color: red;
-  background: pink;
-}
-</style>
+<style></style>
